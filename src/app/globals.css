@@ -1,0 +1,366 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* ------------------------------------------------------------------ */
+/* Brand tokens, taken from the social banners: deep pine teal, mint,  */
+/* warm paper and a coral accent.                                      */
+/* ------------------------------------------------------------------ */
+:root {
+  --pine-950: #072a2b;
+  --pine-900: #0b3b3c;
+  --pine-800: #14504f;
+  --pine-700: #1f6a67;
+  --mint-50: #f1f8f4;
+  --mint-100: #e4f2ea;
+  --mint-200: #cdebdd;
+  --mint-300: #a9d9c4;
+  --coral-400: #ff8a66;
+  --coral-500: #f4724a;
+  --coral-700: #b8401c;
+  --paper: #faf7f0;
+  --cream: #fff6ea;
+
+  --background: var(--paper);
+  --foreground: var(--pine-900);
+  --card: #ffffff;
+  --card-foreground: var(--pine-900);
+  --popover: #ffffff;
+  --popover-foreground: var(--pine-900);
+  --primary: var(--pine-900);
+  --primary-foreground: var(--cream);
+  --secondary: var(--mint-100);
+  --secondary-foreground: var(--pine-900);
+  --muted: #efeae0;
+  --muted-foreground: #4b6667;
+  --accent: var(--mint-200);
+  --accent-foreground: var(--pine-900);
+  --destructive: #b3261e;
+  --border: #dcd6c8;
+  --input: #cfc9ba;
+  --ring: var(--coral-500);
+  --radius: 0.75rem;
+}
+
+@theme inline {
+  --color-pine-950: var(--pine-950);
+  --color-pine-900: var(--pine-900);
+  --color-pine-800: var(--pine-800);
+  --color-pine-700: var(--pine-700);
+  --color-mint-50: var(--mint-50);
+  --color-mint-100: var(--mint-100);
+  --color-mint-200: var(--mint-200);
+  --color-mint-300: var(--mint-300);
+  --color-coral-400: var(--coral-400);
+  --color-coral-500: var(--coral-500);
+  --color-coral-700: var(--coral-700);
+  --color-paper: var(--paper);
+  --color-cream: var(--cream);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --font-sans: "DM Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces Variable", "Iowan Old Style", Georgia, serif;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 6px);
+  --radius-2xl: calc(var(--radius) + 14px);
+
+  --shadow-soft: 0 1px 2px rgb(11 59 60 / 0.06), 0 14px 32px -14px rgb(11 59 60 / 0.22);
+  --shadow-lift: 0 2px 4px rgb(11 59 60 / 0.06), 0 28px 60px -20px rgb(7 42 43 / 0.38);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/60;
+  }
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    font-optical-sizing: auto;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: var(--coral-400);
+    color: var(--pine-950);
+  }
+  :focus-visible {
+    outline: 2px solid var(--coral-500);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Type scale. Headlines are Fraunces with optical sizing; weights are */
+/* kept moderate so large sizes stay refined rather than shouty.       */
+/* ------------------------------------------------------------------ */
+@utility display-1 {
+  font-family: var(--font-display);
+  font-weight: 560;
+  font-size: clamp(2.75rem, 1.6rem + 5.2vw, 5.75rem);
+  line-height: 0.98;
+  letter-spacing: -0.028em;
+  text-wrap: balance;
+}
+@utility display-2 {
+  font-family: var(--font-display);
+  font-weight: 560;
+  font-size: clamp(2.1rem, 1.5rem + 2.6vw, 3.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.022em;
+  text-wrap: balance;
+}
+@utility display-3 {
+  font-family: var(--font-display);
+  font-weight: 580;
+  font-size: clamp(1.5rem, 1.25rem + 1vw, 2.125rem);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+@utility lede {
+  font-size: clamp(1.1875rem, 1.1rem + 0.4vw, 1.375rem);
+  line-height: 1.55;
+  color: var(--muted-foreground);
+  text-wrap: pretty;
+}
+@utility measure {
+  max-width: 62ch;
+}
+
+/* ------------------------------------------------------------------ */
+/* Rich text. Shared by the public article page and the editor, so     */
+/* what is written is what is read.                                    */
+/* ------------------------------------------------------------------ */
+.rich {
+  font-size: 1.1875rem;
+  line-height: 1.78;
+  color: #1a4546;
+}
+.rich > * + * {
+  margin-top: 1.3em;
+}
+.rich h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.9rem;
+  line-height: 1.15;
+  letter-spacing: -0.018em;
+  margin-top: 2.4em;
+  color: var(--pine-900);
+  text-wrap: balance;
+}
+.rich h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.4rem;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin-top: 2em;
+  color: var(--pine-900);
+}
+.rich h2 + *,
+.rich h3 + * {
+  margin-top: 0.7em;
+}
+.rich p {
+  text-wrap: pretty;
+}
+.rich a {
+  color: var(--coral-700);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+.rich a:hover {
+  text-decoration-thickness: 2px;
+}
+.rich strong {
+  font-weight: 650;
+  color: var(--pine-900);
+}
+.rich ul,
+.rich ol {
+  padding-left: 1.4em;
+}
+.rich ul {
+  list-style: disc;
+}
+.rich ol {
+  list-style: decimal;
+}
+.rich li {
+  padding-left: 0.3em;
+}
+.rich li + li {
+  margin-top: 0.45em;
+}
+.rich li::marker {
+  color: var(--coral-500);
+}
+.rich blockquote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 450;
+  font-size: 1.55rem;
+  line-height: 1.35;
+  color: var(--pine-800);
+  padding: 0.2em 0 0.2em 1.4em;
+  margin-top: 1.8em;
+  margin-bottom: 1.8em;
+  position: relative;
+}
+.rich blockquote::before {
+  content: "\201C";
+  position: absolute;
+  left: -0.05em;
+  top: -0.25em;
+  font-size: 3.2rem;
+  line-height: 1;
+  color: var(--coral-500);
+}
+.rich blockquote p + p {
+  margin-top: 0.6em;
+}
+.rich img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-inline: auto;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-soft);
+}
+.rich img.ProseMirror-selectednode,
+.rich [data-video-embed].ProseMirror-selectednode {
+  outline: 3px solid var(--coral-500);
+  outline-offset: 3px;
+}
+.rich hr {
+  border: 0;
+  height: 1px;
+  background: var(--border);
+  margin-block: 2.4em;
+}
+.rich code {
+  font-size: 0.9em;
+  background: var(--mint-100);
+  padding: 0.15em 0.4em;
+  border-radius: 6px;
+}
+.rich pre {
+  background: var(--pine-950);
+  color: var(--mint-100);
+  padding: 1.1rem 1.3rem;
+  border-radius: var(--radius-lg);
+  overflow-x: auto;
+  font-size: 0.95rem;
+}
+.rich pre code {
+  background: transparent;
+  padding: 0;
+}
+.rich [data-video-embed] {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: var(--pine-950);
+  box-shadow: var(--shadow-soft);
+}
+.rich [data-video-embed] iframe,
+.rich [data-video-embed] video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.rich [data-text-align="center"],
+.rich [style*="text-align: center"] {
+  text-align: center;
+}
+.rich [style*="text-align: right"] {
+  text-align: right;
+}
+
+/* Editor surface */
+.tiptap {
+  outline: none;
+  min-height: 22rem;
+}
+.tiptap p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+  color: #8aa0a0;
+}
+.tiptap [data-video-embed] iframe {
+  pointer-events: none;
+}
+
+/* Print: patient summaries and notes print cleanly */
+@media print {
+  header,
+  footer,
+  nav,
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+  }
+}
+
+/* One orchestrated page-load moment: the hero rises in once. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@utility rise {
+  animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: var(--d, 0ms);
+}
